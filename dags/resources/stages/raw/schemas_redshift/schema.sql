@@ -97,6 +97,25 @@ SORTKEY (log_index);
 
 --
 
+DROP TABLE IF EXISTS ethereum.token_transfers_v2;
+
+CREATE TABLE ethereum.token_transfers_v2 (
+  contract_address VARCHAR(65535) NOT NULL, -- Contract address
+  from_address     VARCHAR(65535) NOT NULL, -- Address of the sender
+  to_address       VARCHAR(65535) NOT NULL, -- Address of the receiver
+  amount           VARCHAR(65535) NOT NULL, -- Amount of tokens transferred (ERC20) / id of the token transferred (ERC721). Cast to NUMERIC or FLOAT8
+  token_type       VARCHAR(65535) NOT NULL, -- ERC20/ ERC1155/ ERC721
+  token_ids        VARCHAR(65535) NOT NULL, -- id of the token transferred (ERC721)
+  transaction_hash VARCHAR(65535) NOT NULL, -- Transaction hash
+  log_index        BIGINT         NOT NULL, -- Log index in the transaction receipt
+  block_number     BIGINT         NOT NULL, -- The block number
+  PRIMARY KEY (transaction_hash, token_ids)
+)
+DISTKEY (block_number)
+SORTKEY (log_index);
+
+--
+
 DROP TABLE IF EXISTS ethereum.tokens;
 
 CREATE TABLE ethereum.tokens (

@@ -74,6 +74,7 @@ def build_load_dag_redshift(
             'logs': 'block_number',
             'receipts': 'block_number',
             'token_transfers': 'block_number',
+            'token_transfers_v2': 'block_number',
             'tokens': 'address',
             'traces': 'block_number',
             'transactions': 'block_number'
@@ -141,6 +142,7 @@ def build_load_dag_redshift(
     load_contracts_task = add_load_tasks('contracts', 'json')
     load_tokens_task = add_load_tasks('tokens', 'csv')
     load_token_transfers_task = add_load_tasks('token_transfers', 'csv')
+    load_token_transfers_v2_task = add_load_tasks('token_transfers_v2', 'csv')
     load_traces_task = add_load_tasks('traces', 'csv')
 
     return dag
