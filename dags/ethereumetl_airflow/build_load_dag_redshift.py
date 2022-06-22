@@ -41,6 +41,7 @@ def build_load_dag_redshift(
         dag_id=dag_id,
         # Daily at 1:30am
         schedule_interval=schedule_interval,
+        max_active_runs=5,
         default_args=default_dag_args)
 
 

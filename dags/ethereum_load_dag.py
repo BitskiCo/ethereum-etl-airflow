@@ -27,7 +27,7 @@ if cloud_provider == 'gcp':
 elif cloud_provider == 'aws':
     # airflow DAG
     DAG = build_load_dag_redshift(
-        dag_id='ethereum_load_dag',
+        dag_id='ethereum_load_dag_redshift',
         chain='ethereum',
         **read_load_dag_redshift_vars(
             var_prefix='ethereum_',
