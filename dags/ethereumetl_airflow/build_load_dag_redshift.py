@@ -136,14 +136,14 @@ def build_load_dag_redshift(
         pg_hook.run(formatted_sql)
 
 
-    load_blocks_task = add_load_tasks('blocks', 'csv')
-    load_transactions_task = add_load_tasks('transactions', 'csv')
-    load_receipts_task = add_load_tasks('receipts', 'csv')
+    load_blocks_task = add_load_tasks('blocks', 'json')
+    load_transactions_task = add_load_tasks('transactions', 'json')
+    load_receipts_task = add_load_tasks('receipts', 'json')
     load_logs_task = add_load_tasks('logs', 'json')
     load_contracts_task = add_load_tasks('contracts', 'json')
-    load_tokens_task = add_load_tasks('tokens', 'csv')
-    load_token_transfers_task = add_load_tasks('token_transfers', 'csv')
-    load_token_transfers_v2_task = add_load_tasks('token_transfers_v2', 'csv')
-    load_traces_task = add_load_tasks('traces', 'csv')
+    load_tokens_task = add_load_tasks('tokens', 'json')
+    load_token_transfers_task = add_load_tasks('token_transfers', 'json')
+    load_token_transfers_v2_task = add_load_tasks('token_transfers_v2', 'json')
+    load_traces_task = add_load_tasks('traces', 'json')
 
     return dag
