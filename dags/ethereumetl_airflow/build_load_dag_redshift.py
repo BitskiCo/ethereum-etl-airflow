@@ -143,6 +143,7 @@ def build_load_dag_redshift(
     load_contracts_task = add_load_tasks('contracts', 'json')
     load_tokens_task = add_load_tasks('tokens', 'json')
     load_token_transfers_task = add_load_tasks('token_transfers', 'json')
+    load_token_transfers_v2_task = add_load_tasks('token_transfers_v2', 'json')
     load_traces_task = add_load_tasks('traces', 'json')
 
     return dag
