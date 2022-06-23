@@ -75,6 +75,7 @@ def build_load_dag_redshift(
             'logs': 'block_number',
             'receipts': 'block_number',
             'token_transfers': 'block_number',
+            'token_transfers_v2': 'block_number',
             'tokens': 'address',
             'traces': 'block_number',
             'transactions': 'block_number'
