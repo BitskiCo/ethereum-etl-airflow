@@ -21,7 +21,7 @@ def build_load_dag_redshift(
         aws_secret_access_key,
         chain='ethereum',
         notification_emails=None,
-        start_date=datetime(2018, 7, 1),
+        start_date=datetime(2020, 12, 31),
         schedule_interval='0 0 * * *'
 ):
     default_dag_args = {
@@ -41,6 +41,7 @@ def build_load_dag_redshift(
         dag_id=dag_id,
         # Daily at 1:30am
         schedule_interval=schedule_interval,
+        max_active_runs=5,
         default_args=default_dag_args)
 
 
@@ -74,6 +75,7 @@ def build_load_dag_redshift(
             'logs': 'block_number',
             'receipts': 'block_number',
             'token_transfers': 'block_number',
+            'token_transfers_v2': 'block_number',
             'tokens': 'address',
             'traces': 'block_number',
             'transactions': 'block_number'
@@ -141,6 +143,7 @@ def build_load_dag_redshift(
     load_contracts_task = add_load_tasks('contracts', 'json')
     load_tokens_task = add_load_tasks('tokens', 'csv')
     load_token_transfers_task = add_load_tasks('token_transfers', 'csv')
+    load_token_transfers_v2_task = add_load_tasks('token_transfers_v2', 'csv')
     load_traces_task = add_load_tasks('traces', 'csv')
 
     return dag

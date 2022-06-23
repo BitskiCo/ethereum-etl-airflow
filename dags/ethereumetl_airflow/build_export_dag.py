@@ -15,6 +15,7 @@ from ethereumetl.cli import (
     extract_contracts,
     extract_tokens,
     extract_token_transfers,
+    extract_token_transfers_v2,
     export_traces,
     extract_field,
 )
@@ -241,6 +242,27 @@ def build_export_dag(
                 os.path.join(tempdir, "token_transfers.json"),
                 export_path("token_transfers", execution_date),
             )
+    def extract_token_transfers_v2_command(execution_date, **kwargs):
+        with TemporaryDirectory() as tempdir:
+            copy_from_export_path(
+                export_path("logs", execution_date), os.path.join(tempdir, "logs.json")
+            )
+
+            logging.info('Calling extract_token_transfers_v2(..., {}, ..., {})'.format(
+                export_batch_size, export_max_workers
+            ))
+            extract_token_transfers_v2.callback(
+                logs=os.path.join(tempdir, "logs.json"),
+                batch_size=export_batch_size,
+                output=os.path.join(tempdir, "token_transfers_v2.json"),
+                max_workers=export_max_workers,
+                values_as_strings=True,
+            )
+
+            copy_to_export_path(
+                os.path.join(tempdir, "token_transfers_v2.json"),
+                export_path("token_transfers_v2", execution_date),
+            )
 
     def export_traces_command(execution_date, provider_uri, **kwargs):
         with TemporaryDirectory() as tempdir:
@@ -301,6 +323,13 @@ def build_export_dag(
         extract_token_transfers_toggle,
         "extract_token_transfers",
         extract_token_transfers_command,
+        dependencies=[export_receipts_and_logs_operator],
+    )
+
+    extract_token_transfers_v2_operator = add_export_task(
+        extract_token_transfers_toggle,
+        "extract_token_transfers_v2",
+        extract_token_transfers_v2_command,
         dependencies=[export_receipts_and_logs_operator],
     )
 
