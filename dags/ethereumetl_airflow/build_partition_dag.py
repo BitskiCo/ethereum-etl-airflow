@@ -26,7 +26,7 @@ def build_partition_dag(
 
     default_dag_args = {
         'depends_on_past': False,
-        'start_date': datetime.strptime('2015-07-30', '%Y-%m-%d'),
+        'start_date': datetime.strptime('2020-12-31', '%Y-%m-%d'),
         'email_on_failure': True,
         'email_on_retry': False,
         'retries': 5,
